@@ -73,8 +73,9 @@ function runMergeSort(n){
   var A = [];
   fillArray(A, n);
   printArray(A);
-  A= mergeSort(A, 0, n);
+  A= mergeSort(A);
   printArray(A);
+  return A;
 }
 
 function mergeSort(A) {
@@ -90,11 +91,11 @@ function mergeSort(A) {
   var a2 = A.slice(Math.floor(A.length/2), A.length);
   a1= mergeSort(a1);
   a2 = mergeSort(a2);
-  return merge(A, a1, a2);
+  return merge(a1, a2);
 }
 
-function merge(A, a1, a2){
-  console.log(A, a1.length, a2.length)
+function merge(a1, a2){
+  //console.log(A, a1.length, a2.length)
   var c = [];
   var i= 0;
   var j = 0;
@@ -122,20 +123,57 @@ function merge(A, a1, a2){
     k++;
   }
   printArray(c);
-  console.log(i, j, k, a1.length, a2.length, c.length);
+  //console.log(i, j, k, a1.length, a2.length, c.length);
   return c;
 }
 
-function quickSort() {
+function runQuickSort(n){
+  var A = [];
+  fillArray(A, n);
+  printArray(A);
+  A= quickSort(A, 0, n);
+  printArray(A);
+}
+
+function quickSort(A, left, right) {
+  var leftPoint = left -1;
+  var rightPoint = right;
+
 
 }
 
-function linearSearch() {
+function quickSortPartition(){
 
 }
 
-function binarySearch() {
-
+function binarySearch(n) {
+  /* Only works on a sorted array. Searches for an element by comparing the
+  middle most item of the subsection of the array. If the middle item is
+  greater than the element we search for, search the subarray to the right.
+  If less, search to the left. Runs in O(logn).*/
+  var A = [];
+  A = runMergeSort(n);
+  //printArray(A);
+  var searchMe = A[Math.floor(Math.random() * n)]; //a random value of an element in A
+  var min = 0;
+  var max = (n-1);
+  var midPoint =0;
+  console.log(searchMe);
+  while (A[midPoint] != searchMe){
+    if (max < min) {
+      return (-1);
+    }
+    midPoint = Math.floor((min+min)/2);
+    if (A[midPoint] < searchMe){
+      min = midPoint + 1;
+    }
+    if (A[midPoint] > searchMe){
+      max = midPoint - 1;
+    }
+    if( A[midPoint] == searchMe){
+      return(midPoint);
+    }
+   }
 }
 
 function fillArray(A, n) {
@@ -159,7 +197,12 @@ function printArray(A){
   /*A function to print an array, specifically for testing purposes*/
   var arrayString = "";
   for (var i=0;i<A.length;i++){
+    if (i != A.length-1){
     arrayString = arrayString + parseInt(A[i]) +  ", " ;
+  }
+  else{
+    arrayString = arrayString + parseInt(A[i]);
+  }
   }
   console.log(arrayString);
 }
@@ -167,4 +210,5 @@ function printArray(A){
 //bubbleSort(15);
 //insertionSort(15);
 //selectionSort(15);
-runMergeSort(15);
+//runMergeSort(15);
+console.log(binarySearch(15));
