@@ -4,15 +4,12 @@ function bubbleSort(n) {
   Repeat until each element is in its proper place in ascending order*/
   var A = [];
   var numSwaps = 0;
-  A = fillArray(A, n);
+  fillArray(A, n);
   var steps = 0;
-  //console.log("Beginning with:");
   for (var i=0;i<A.length-1;i++){
-    //printArray(A);
     if (A[i] > A[i+1]){
-      A = swap(A, i, i+1);
+      swap(A, i, i+1);
       numSwaps++;
-      //printArray(A);
     }
     if (i === A.length-2 && numSwaps != 0){
       /*we have reached the last two elements and have swapped at least once
@@ -23,8 +20,6 @@ function bubbleSort(n) {
     }
     steps++;
   }
-  //console.log("Finishing with:");
-  //printArray(A);
   return(steps);
 }
 
@@ -32,25 +27,47 @@ function insertionSort(n) {
   /* An in-place sorting algorithm where it is maintained that a section of the
   array remains sorted while elements are INSERTed into their appropriate
   positions. Runs in O(n^2).*/
-  var B = [];
-  A = fillArray(B, n);
+  var A = [];
+  fillArray(A, n);
   var steps = 0;
   var pivot;
-  printArray(B);
-  for (var i =1; i<B.length;i++){
+  //printArray(B);
+  for (var i =1; i<A.length;i++){
     pivot = i;
-    while (pivot > 0 && B[pivot-1] > B[pivot]){
-      swap(B, pivot, pivot-1)
+    while (pivot > 0 && A[pivot-1] > A[pivot]){
+      swap(A, pivot, pivot-1)
       pivot = pivot -1;
       steps++;
     }
   }
-  printArray(B);
+  //printArray(B);
   return steps;
 }
 
-function selectionSort() {
-
+function selectionSort(n) {
+  /* An in-place sorting algorithm where we divide the array into "sorted" and
+  unsorted. We scan the list each time until we are able to swap our current
+  value with the smallest value in the remainder of the array. Runs in O(n^2).*/
+  var A = [];
+  fillArray(A, n);
+  var steps = 0;
+  var min;
+  var swapMe;
+  printArray(A);
+  for (var i =0; i<A.length;i++){
+    min = i; // select i as the minimum element
+    for (var j = i; j<A.length;j++){ //scan the array for the smallest element
+      if (A[j]<A[min]){
+        min = j;
+      }
+      steps ++;
+    }
+    if (min != i){ //if we found an element smaller than A[i], swap
+      swap(A, min, i);
+    }
+  }
+  printArray(A);
+  return(steps);
 }
 
 function mergeSort() {
@@ -84,10 +101,10 @@ function swap(A, i, j){
   A[i] = A[j];
   A[j] = temp;
   //printArray(A);
-  return A;
 }
 
 function printArray(A){
+  /*A function to print an array, specifically for testing purposes*/
   var arrayString = "";
   for (var i=0;i<A.length;i++){
     arrayString = arrayString + parseInt(A[i]) +  ", " ;
@@ -95,5 +112,6 @@ function printArray(A){
   console.log(arrayString);
 }
 
-//bubbleSort(15);
-insertionSort(15);
+console.log(bubbleSort(15));
+console.log(insertionSort(15));
+console.log(selectionSort(15));
