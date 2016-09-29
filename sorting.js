@@ -135,14 +135,26 @@ function runQuickSort(n){
   printArray(A);
 }
 
-function quickSort(A, left, right) {
-  var leftPoint = left -1;
-  var rightPoint = right;
-
-
-}
-
-function quickSortPartition(){
+function quickSort(A) {
+  /*An algorithm that partitions an array of data into smaller arrays.
+    A large array is partitioned into two arrays; one with values smaller than
+    the pivot, and one with values larger than the pivot.
+    Recursively calls itself to sort the resulting subarrays. O(nlogn).*/
+    if(A.length ==0){
+      return A;
+    }
+    var left = [];
+    var right = [];
+    var pivot = A[0];
+    for( var i = 1; i<A.length; i++){
+      if(A[i] < pivot){
+        left.push(A[i]);
+      }
+      else{
+        right.push(A[i]);
+      }
+    }
+    return quickSort(left).concat(pivot,quickSort(right));
 
 }
 
@@ -211,4 +223,5 @@ function printArray(A){
 //insertionSort(15);
 //selectionSort(15);
 //runMergeSort(15);
-console.log(binarySearch(15));
+//console.log(binarySearch(15));
+runQuickSort(15);
