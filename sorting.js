@@ -5,6 +5,7 @@ function bubbleSort(n) {
   var A = [];
   var numSwaps = 0;
   A = fillArray(A, n);
+  var steps = 0;
   //console.log("Beginning with:");
   for (var i=0;i<A.length-1;i++){
     //printArray(A);
@@ -20,13 +21,32 @@ function bubbleSort(n) {
       i=-1;
       numSwaps=0;
     }
+    steps++;
   }
   //console.log("Finishing with:");
-  printArray(A);
+  //printArray(A);
+  return(steps);
 }
 
-function insertionSort() {
-
+function insertionSort(n) {
+  /* An in-place sorting algorithm where it is maintained that a section of the
+  array remains sorted while elements are INSERTed into their appropriate
+  positions. Runs in O(n^2).*/
+  var B = [];
+  A = fillArray(B, n);
+  var steps = 0;
+  var pivot;
+  printArray(B);
+  for (var i =1; i<B.length;i++){
+    pivot = i;
+    while (pivot > 0 && B[pivot-1] > B[pivot]){
+      swap(B, pivot, pivot-1)
+      pivot = pivot -1;
+      steps++;
+    }
+  }
+  printArray(B);
+  return steps;
 }
 
 function selectionSort() {
@@ -59,11 +79,11 @@ function fillArray(A, n) {
 
 function swap(A, i, j){
   /* Swap values in A[i], A[j] */
-  console.log("Swapping");
+  //console.log("Swapping");
   var temp = A[i];
   A[i] = A[j];
   A[j] = temp;
-  printArray(A);
+  //printArray(A);
   return A;
 }
 
@@ -75,4 +95,5 @@ function printArray(A){
   console.log(arrayString);
 }
 
-bubbleSort(15);
+//bubbleSort(15);
+insertionSort(15);
