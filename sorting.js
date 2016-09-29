@@ -53,7 +53,7 @@ function selectionSort(n) {
   var steps = 0;
   var min;
   var swapMe;
-  printArray(A);
+  //printArray(A);
   for (var i =0; i<A.length;i++){
     min = i; // select i as the minimum element
     for (var j = i; j<A.length;j++){ //scan the array for the smallest element
@@ -66,12 +66,64 @@ function selectionSort(n) {
       swap(A, min, i);
     }
   }
-  printArray(A);
+  //printArray(A);
   return(steps);
 }
+function runMergeSort(n){
+  var A = [];
+  fillArray(A, n);
+  printArray(A);
+  A= mergeSort(A, 0, n);
+  printArray(A);
+}
 
-function mergeSort() {
+function mergeSort(A) {
+  /* Merge sort is a divide and conquer sorting algorithm with worst case
+  complexity O(nlogn).
+  Merge sort divides the array into equal halves until they are single elements,
+  then combines them in a sorted manner recursively. */
+  printArray(A);
+  if (A.length < 2){
+    return A;
+  }
+  var a1 = A.slice(0, Math.floor(A.length/2));
+  var a2 = A.slice(Math.floor(A.length/2), A.length);
+  a1= mergeSort(a1);
+  a2 = mergeSort(a2);
+  return merge(A, a1, a2);
+}
 
+function merge(A, a1, a2){
+  console.log(A, a1.length, a2.length)
+  var c = [];
+  var i= 0;
+  var j = 0;
+  var k = 0;
+  while (i <a1.length && j < a2.length){
+    if (a1[i] > a2[j]){
+      c[k] = a2[j];
+      k++;
+      j++;
+    }
+    else{
+      c[k] = a1[i];
+      i++;
+      k++
+    }
+  }
+  while (i< a1.length){
+    c[k] = a1[i];
+    k++;
+    i++;
+  }
+  while (j < a2.length){
+    c[k] = a2[j];
+    j++;
+    k++;
+  }
+  printArray(c);
+  console.log(i, j, k, a1.length, a2.length, c.length);
+  return c;
 }
 
 function quickSort() {
@@ -112,6 +164,7 @@ function printArray(A){
   console.log(arrayString);
 }
 
-console.log(bubbleSort(15));
-console.log(insertionSort(15));
-console.log(selectionSort(15));
+//bubbleSort(15);
+//insertionSort(15);
+//selectionSort(15);
+runMergeSort(15);
